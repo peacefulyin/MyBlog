@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主页</title>
+	{%block source%}{%endblock%}
+	{%block js%}{%endblock%}
+	{%load static from staticfiles%}
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$(window).scroll(function () {
+				var windowWidth = $(window).width();
+				var n_navi_top = $('.n_navi_fixed').offset().top;
+				if(windowWidth >= 1300){
+				    if(n_navi_top>358){
+					$('.n_navi_fixed').slideDown("slow");
+					}
+					else {
+						$('.n_navi_fixed').slideUp("slow");
+					}
+				}
+				else {
+				    $('.n_navi_fixed').hide();
+				}
+
+            });
+
+
+			var FixedNav = $('.n_navi_fixed');
+			$(window).resize(function () {
+			    var windowWidth = $(window).width();
+
+				if(windowWidth < 1300){
+				    FixedNav.hide()
+				}
+				else {
+				    FixedNav.show()
+				}
+            });
+
+
+
+        })
+	</script>
+	<style>
+
+
+		body{
+				background-color: rgb(242,242,242) !important;
+			    color: #525452;
+				font-family: Raleway, "Helvetica Neue" ;
+			    font-size: 18px;
+			    font-weight: normal;
+			    line-height: 1.85em;
+			
+		}
+		p {
+			    margin: 1em 0 1.5em 0;
+			}
+		
+
+	/* head --> */
+		.top-wrapper {
+		    background: #222;
+		    max-height: 78px;
+		    height: 36px;
+		}
+
+		#logo, .logo-wrapper {
+		    background: #1B1B1B;
+		}
+
+		.logo-wrapper {
+			width: 100%;
+			background: #1B1B1B;
+			float: left;
+		}
+
+		.logo-inner {
+		    margin: 0 auto;
+		}
+
+		#logo {
+		    padding-top: 60px;
+		    padding-bottom: 50px;
+		    padding: 80px 0 70px 0;
+		    text-align: center;
+		}
+
+	/* navi --> */
+
+		.n_navi{
+			background-color: black;
+		}
+
+		.pd_navi,.n_navi_fixed{
+			height: auto !important;
+		}
+
+
+
+		.n_navi_1{
+			margin: 0 !important; 
+		}
+
+		#navbar-menu{
+			width: 100%;
+			background: #1B1B1B;
+			border-top: 2px solid #000;
+	    	border-bottom: 5px solid #000;
+	    	height: 60px;
+		}
+
+		.pd_navi{
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.nav .out_tag{
+			padding: 15px 15px 20px 15px;
+			font-size: 16px;
+			font-family: Oswald !important;
+		    font-weight: normal;
+		    color: #fff !important;
+		}
+
+		.nav>li>a{
+			transition:none;
+			transition: color 0.25s ease-in-out;
+
+		}
+
+		.nav>li>a:focus{
+			background-color: black !important;
+		}
+		.nav>li>a:hover{
+			background-color: black !important;
+			color: #509BA0 !important;
+		}
+
+		.navbar-brand{
+		    padding: 29px 15px;
+		    height: auto;
+
+		}
+		nav.navbar.bootsnav{
+		    border: none;
+		}
+		.navbar-nav{
+			margin-left: 380px;
+		}
+		nav.navbar.bootsnav ul.nav > li > a{
+		    color: #474747;
+		    text-transform: uppercase;
+		}
+		nav.navbar.bootsnav ul.nav > li:hover{
+		    background: #f4f4f4;
+		}
+		.nav > li:after{
+		    content: "";
+		    width: 0;
+		    height: 5px;
+		    background: #fff;
+		    position: absolute;
+		    bottom: 0;
+		    left: 0;
+		    transition: all 0.5s ease 0s;
+		}
+		.nav > li:hover:after{
+		    width: 100%;
+		}
+		nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after{
+		    font-family: 'FontAwesome';
+		    font-size: 16px;
+		    font-weight: 500;
+		    position: absolute;
+		    top: 35%;
+		    right: 10%;
+		    transition: all 0.4s ease 0s;
+		}
+		nav.navbar.bootsnav ul.nav > li.dropdown.on > a.dropdown-toggle:after{
+		    content: "\f105";
+		    transform: rotate(90deg);
+		}
+		.dropdown-menu.multi-dropdown{
+		    position: absolute;
+		    left: -100% !important;
+		}
+		nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		    border: none;
+		}
+		@media only screen and (max-width:990px){
+		    nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after,
+		    nav.navbar.bootsnav ul.nav > li.dropdown.on > a.dropdown-toggle:after{ content: " "; }
+		    .dropdown-menu.multi-dropdown{ left: 0 !important; }
+		    nav.navbar.bootsnav ul.nav > li:hover{ background: transparent; }
+		    nav.navbar.bootsnav ul.nav > li > a{ margin: 0; }
+		}
+		
+		/* n_navi_fixed*/
+		.n_navi_fixed{
+			z-index:999;
+			width: 100%;
+			position: fixed;
+			left: 0;
+			top:0;
+			display: none;
+		}
+
+		.n_navi_fixed .nav .out_tag{
+			padding: 15px 15px 20px 15px;
+			font-size: 16px;
+			font-family: Oswald !important;
+		    font-weight: normal;
+		    color: #333 !important;;
+		}
+		
+		.n_navi_fixed #navbar-menu{
+			background-color: white;
+			border:none;
+		}
+
+		.n_navi_fixed .navbar-nav{
+			margin-left: 60%;
+		}
+
+		.n_navi_fixed .nav>li>a:focus{
+			background-color: white !important;
+		}
+		.n_navi_fixed .nav>li>a:hover{
+			background-color: white !important;
+			color: #509BA0 !important;
+		}
+		/* footer*/
+		/*
+		.widget {
+		    margin: 0px 0 40px 20px;
+		    padding: 30px;
+		    border: none;
+		    background: none;
+		    float: left;
+		    width: 100%;
+		    background: #fff;
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+		}
+		*/
+		#footer{
+		float: left;
+	    position: relative;
+	    width: 100%;
+	    background: #fff;
+	    
+	    border-top: 1px solid #eee;
+	    padding-bottom: 60px;
+	    margin-top: 80px;
+		}
+
+		#footer .block3 {
+		    position: relative;
+		    float: left;
+		    width: 100%;
+		    background: #fff;
+		    -webkit-box-shadow: 1px 0px 0px 1px rgba(0,0,0,0.05);
+		    -moz-box-shadow: 1px 0px 0px 1px rgba(0,0,0,0.05);
+		    box-shadow: 1px 0px 0px 1px rgba(0,0,0,0.05);
+		}
+		.block3 .block3-instagram-title{
+			font-size: 30px !important;
+    		margin: 30px 0;
+    		text-align: center;
+		}
+
+		.footerinside{
+			margin: 0 auto;
+		}
+
+		.block_footer_text, .quote-category .blogpostcategory, .quote-widget p, .quote-widget .blogcontent-title{
+			font-family: Playfair Display, "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
+		}
+		.block_footer_text {
+		    float: left;
+		    text-align: center;
+		    font-size: 26px;
+		    line-height: 40px;
+		    font-style: italic;
+		    color: #ccc;
+		    margin-bottom: 5px;
+		    margin-top: 50px;
+		}
+
+		.footer_widget1, .footer_widget2, .footer_widget3 {
+		    width: 31%;
+		    margin-top: 35px;
+		    position: relative;
+		    margin-right: 70px;
+		    padding: 0px 0 0px 0px;
+		    float: left;
+		}
+
+		#footer .widget{
+		    border: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			box-shadow: none;
+			margin-bottom: 40px;
+		}
+
+		.widget.widget_text{
+		    color: #999;
+		    font-size: 16px;
+		}
+		.widget .textwidget{
+			text-align: center;
+		}
+
+		#footerbwrap {
+		    padding: 0;
+		    clear: both;
+		    margin: 0;
+		    width: 100%;
+		    overflow: hidden;
+		    background: #F4F4F4;
+		    color: #bbb;
+		    padding: 0px 0 15px 0;
+		}
+
+		#footerb {
+		    font-size: 14px;
+		    margin: 0 auto;
+		    padding: 0px 0;
+		    width: 1180px;
+		    overflow: hidden;
+		}
+
+		.lowerfooter {
+		    padding-top: 20px;
+		}
+
+		#footerb .copyright {
+		    text-align: center;
+		}
+
+		.left-footer-content {
+		    width: 50%;
+		    float: left;
+		    text-align: left;
+		}
+
+		.right-footer-content {
+		    width: 50%;
+		    float: right;
+		    text-align: right;
+		}
+
+	</style>
+	{%block style%}{%endblock%}
+</head>
+<body>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="top-wrapper col-xs-12"></div>
+		</div>
+		<div class="row">
+			<div class="logo-wrapper col-xs-12">
+				<div class="logo-inner">
+					<div id="logo">
+						<a href="">
+							<img src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2016/09/brixton-alternate-logo.png">
+						</a>							
+					</div>		
+				</div>
+			</div>
+		</div>	
+	</div>
+
+	<div class="n_navi">
+        <div class="container-fluid">
+            <div class="row nav_row1">
+                <div class="col-md-12 pd_navi">
+                    <nav class="navbar navbar-default navbar-mobile bootsnav n_navi_1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav tag_contain" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li><a class="out_tag" href="{%url 'blog:index' 'home'%}">Home</a></li>
+                                <li><a class="out_tag" href="{%url 'blog:index' 'lifestyle'%}">LIFESTYLE</a></li>
+                                <li class="dropdown">
+                                    <a href="{%url 'blog:index' 'piano'%}" class="out_tag dropdown-toggle" data-toggle="dropdown">PIANO</a>
+                                    <!--
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
+                                                    <ul class="dropdown-menu multi-dropdown">
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                    </ul>
+                                    -->
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{%url 'blog:index' 'geek'%}" class="out_tag dropdown-toggle" data-toggle="dropdown">science</a>
+                                    <!--
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                                    <ul class="dropdown-menu multi-dropdown">
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                    </ul>
+                                </li>
+                                -->
+                                <li><a class="out_tag" href="#">Contact Me</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    	<div class="n_navi_fixed">
+        <div class="container-fluid">
+            <div class="row nav_row1">
+                <div class="col-md-12 pd_navi">
+                    <nav class="navbar navbar-default navbar-mobile bootsnav n_navi_1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav tag_contain" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li><a class="out_tag" href="{%url 'blog:index' 'home'%}">Home</a></li>
+                                <li><a class="out_tag" href="{%url 'blog:index' 'lifestyle'%}">LIFESTYLE</a></li>
+                                <li class="dropdown">
+                                    <a href="{%url 'blog:index' 'piano'%}" class="out_tag dropdown-toggle" data-toggle="dropdown">PIANO</a>
+                                    <!--  
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
+                                                    <ul class="dropdown-menu multi-dropdown">
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                    </ul>
+                                    -->
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{%url 'blog:index' 'geek'%}" class="out_tag dropdown-toggle" data-toggle="dropdown">science</a>
+                                    <!--
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                                    <ul class="dropdown-menu multi-dropdown">
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                    </ul>
+                                </li>
+                                -->
+                                <li><a class="out_tag" href="#">Contact Me</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{%block body%}{%endblock%}
+	
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div id="footer">
+				<div class="block3">
+					<a href=""></a>
+					<h5 class="block3-instagram-title">FOLLOW ME ON INSTAGRAM</h5>
+				</div>
+			<div class="footerinside">
+				<div class="block_footer_text">
+					<p></p>
+					<p>“I started with Brixton to provide you with daily fresh new ideas about trends. It is a very clean and elegant Wordpress Theme suitable for every blogger. Perfect for sharing your lifestyle.”</p>
+					<p></p>
+				</div>
+				<div class="footer_widget">
+					<div class="footer_widget1">
+						<div class="widget widget_text">
+							<div class="textwidget"></div>
+						</div>
+					</div>
+					<div class="footer_widget2">
+						<div class="widget widget_text">
+							<div class="textwidget">
+								<br>
+								<a href="">
+									<img src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-footer-logo.png">
+								</a>
+								<br>
+							</div>
+						</div>
+					</div>
+					<div class="footer_widget3"></div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div id="footerbwrap">
+		<div id="footerb">
+			<div class="lowerfooter">
+				<div class="copyright">
+					<div class="left-footer-content">
+						© 2015 copyright PREMIUMCODING // All rights reserved // Privacy Policy
+					</div>
+					<div class="right-footer-content">
+						Brixton was made with love by Premiumcoding
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+
+</body>
+</html>

@@ -1,0 +1,1149 @@
+{% extends "myblog/base.html" %}
+{%block source%}
+	{%load static from staticfiles%}
+
+	<script type="text/javascript" src="{% static 'myblog/js/jquery-1.12.4.js'%}"></script>
+	<script type="text/javascript" src="{% static 'myblog/js/bootstrap.min.js'%}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/bootstrap.min.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/main.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/reset.css'%}">
+
+    	    <!-- fonts -->
+	<link rel="dns-prefetch" href="//use.fontawesome.com">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="stylesheet" id="googleFonts-css" href="https://fonts.googleapis.com/css?family=Raleway:400,600,700|Oswald|Oswald|Playfair%20Display:400,400italic" type="text/css" media="all">
+	<link href="http://fonts.googleapis.com/css?family=Roboto+Slab%3A400%2C700" rel="stylesheet" property="stylesheet" type="text/css" media="all">
+	<link href="http://fonts.googleapis.com/css?family=Roboto%3A900%2C700" rel="stylesheet" property="stylesheet" type="text/css" media="all">
+	<link href="http://fonts.googleapis.com/css?family=Oswald%3A700%2C400" rel="stylesheet" property="stylesheet" type="text/css" media="all">
+	<link href="http://fonts.googleapis.com/css?family=Raleway%3A700%2C900" rel="stylesheet" property="stylesheet" type="text/css" media="all">
+	<link rel="stylesheet" id="googleFonts-css" href="https://fonts.googleapis.com/css?family=Raleway:400,600,700|Oswald|Oswald|Playfair%20Display:400,400italic" type="text/css" media="all">
+
+		    <!-- little banner -->
+	<link rel="stylesheet" type="text/css" href="{%static 'myblog/lunbo/css/normalize.css'%}" />
+	<link rel="stylesheet" href="{%static 'myblog/lunbo/dist/pageSwitch.min.css'%}">
+	<script src="{%static 'myblog/lunbo/dist/pageSwitch.min.js'%}"></script>
+
+
+
+
+{%endblock%}
+
+{% block js %}
+<script>
+	$(document).ready(function() {
+        <!-- 轮播 -->
+        $("#container").PageSwitch({
+            direction: 'horizontal',
+            easing: 'ease-in',
+            duration: 1000,
+            autoPlay: true,
+            loop: 'false'
+        });
+
+
+
+		$('.form-submit').click(function () {
+		    var mydate = new Date();
+		    var datetime = mydate.getFullYear()+'-' + (mydate.getMonth()+1)+'-'+mydate.getDate();
+			var name = $('.commentform #author').val();
+			var email = $('.commentform #email').val();
+			var content = $('.commentform #comment').val();
+			var time = datetime;
+			var url = window.location.href;
+			var artical_id = url.split('/').pop();
+			data = {
+			    'name':name,
+				'text':content,
+				'pub_time':time,
+			    'artical_id':artical_id
+			};
+			if(name && content){
+			    $.post('/send_comment',data,function () {
+
+					$('.commentlist ul').prepend("<li>\n" +
+                    "\t\t\t\t\t\t\t\t\t<div class=\"cl_name\"><span>"+name+"</span></div>\n" +
+                    "\t\t\t\t\t\t\t\t\t<div class=\"cl_content\"><p>"+content+"</p></div>\n" +
+                    "\t\t\t\t\t\t\t\t\t<div class=\"cl_time\"><span>"+time+"</span></div>\n" +
+                    "\n" +
+                    "\t\t\t\t\t\t\t\t</li>")
+                });
+			}
+        });
+
+
+		/*
+		$('.comment_ch_page .ch_comment').click(function () {
+			var now_page = $('.comment_page').text().split('/')[0]
+		    if($(this).text() == Previous){
+		        $.get('/get_comments/'+Number(now_page),function (dic) {
+                })
+			}
+        })
+		*/
+
+	})
+</script>
+
+{% endblock %}
+
+{%block style%}
+	<style type="text/css">
+
+		body {
+		    background-color: rgb(242,242,242);
+		    background: #f2f2f2 ;
+		    color: #525452;
+		    font-family: Raleway, "Helvetica Neue";
+		    font-size: 18px;
+		    font-weight: normal;
+		    line-height: 2.5em;
+		}
+
+		a{
+			color: #343434;
+			transition: all 0.25s ease-in-out;
+		}
+		a:hover{
+				text-decoration: none !important;
+				color: #509BA0 !important;
+			}
+
+		.list a img{
+			transition: all 0.25s ease-in-out;		}
+
+		.list a img:hover{
+			opacity: 0.9;
+		}
+
+		.category_posts a img,.relatedPosts a img:hover{
+			transition: opacity 0.25s ease-in-out;		
+		}
+
+		.category_posts a img:hover,.relatedPosts a img:hover{
+			opacity: 0.9;
+		}
+
+
+
+		html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+		    margin: 0;
+		    padding: 0;
+		    border: 0;
+		    outline: 0;
+		    vertical-align: baseline;
+		    background: transparent;
+		}
+
+
+		h1, h2, h3, h4, h5, h6, .block1 p, .blog-category a, .post-meta a, .widget_wysija_cont .wysija-submit {
+			    font-family: Oswald, "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
+			    color: #333;
+			}
+
+		form {
+		    display: block;
+		    margin-top: 0em;
+		}
+
+		input[type="text"], input[type="password"], input[type="email"], select, textarea {
+		    padding-left: 10px !important;
+		}
+
+		.widget_tag_cloud a{
+			background: #509BA0;
+		}
+
+		.m_cen{
+			padding-top: 70px;
+		}		
+
+		.list{
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+			background-color: #fff;
+			width: auto;
+			margin-bottom:50px;
+			position: relative;
+		}
+
+		/* banner */
+
+		#myCarousel{
+
+		}
+
+		/* cards */
+		.blog-category{
+			text-align: center;
+			font-size: 22px;
+			padding-top: 50px;
+		}
+
+		.blog-category a{
+			text-transform: uppercase;
+			font-style: normal;
+			color: #bbb;
+		}
+		.blog-category em:before{
+		    width: 80px;
+		    height: 8px;
+		    background: url(http://brixton.premiumcoding.com/demo5/wp-content/themes/brixton/images/brixton-border-left.png) 0 1px no-repeat;
+		    margin-top: 12px;
+		    margin-left: -90px;
+		    position: absolute;
+		    content: '';
+		}
+		
+		.blog-category em:after {
+		    width: 80px;
+		    height: 8px;
+		    background: url(http://brixton.premiumcoding.com/demo5/wp-content/themes/brixton/images/brixton-border-right.png) 0 1px no-repeat;
+		    margin-top: 12px;
+		    margin-left: 10px;
+		    position: absolute;
+		    content: '';
+		}
+
+
+
+
+
+		.topBlog .c_title{
+			padding: 0 30px;
+			font-size: 44px;
+			text-align: center;
+		    margin-bottom: 22px;
+		}
+
+		.topBlog .c_title a{
+			font-size: 100%;
+			color: #333;
+		}
+
+		.blogImage{
+			vertical-align: baseline;
+		}
+
+		.blogImage a{
+			transition: all 0.25s ease-in-out;
+		}
+
+		.blogImage img{
+			padding: 0 30px;
+			height: auto;
+		}
+
+		.entry .meta{
+			padding: 0 30px;
+		}
+
+		.entry .blogContent {
+		    margin-top: 15px;
+		    margin-bottom: 30px;
+		}
+
+		.entry .blogContent .blog_content {
+		    margin-bottom: 0px;
+		    text-align: left;
+		    color: #444;
+		}
+
+		.blogContent .blog_content p{
+		    padding: 10px 0 15px 0;
+		    display: block;
+			text-indent:25px;
+
+		}
+
+		.blog_content .read_more{
+			text-align: center;
+		}
+
+		.read_more a{
+		    font-family: Oswald, "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
+		        position: relative;
+			    letter-spacing: 1px;
+			    text-align: center;
+			    border-bottom: 2px solid #fff;
+			    color: #333 !important;
+			    font-size: 22px;
+			    text-transform: uppercase;
+			    text-decoration: none !important;
+			    transition: 1s ease-in-out;
+		}
+
+		.read_more a:hover {
+		    border-bottom: 2px solid ;
+		}
+
+		.blogBottom,.author-info-wrap{
+			    float: left;
+			    width: 100%;
+			    padding: 0 30px;
+			    margin-left:-30px;
+		        background: url({%static 'myblog/images/card_border.png'%}) 2px 0px repeat-x;
+
+			}
+
+		.blogBottom .post-meta {
+		    text-align: center;
+		    margin: 40px 0;
+		    text-transform: uppercase;
+		    font-size: 16px;
+		    float: left;
+		    height: 47px;
+		    line-height: 47px;
+		    padding: 0 0 0 30px;
+		    margin-left: -45px;
+		    background: #333;
+		}		
+
+		.blogBottom .post-meta a{
+		    padding: 0px 3px;
+		    color: #fff !important;
+		    font-style: normal;
+		    display: inline;
+		    border-bottom: 1px solid #333;
+			transition: border 0.25s ease-in-out;
+		}		
+
+		.post-meta:after {
+		    width: 40px;
+		    height: 47px;
+		    background: url({%static 'myblog/images/right_stuff.png'%}) 0 0 no-repeat;
+		    margin-top: 0px;
+		    margin-left: 0px;
+		    position: relative;
+		    float: right;
+		    bottom: 0;
+		    right: -30px;
+		    content: '';
+		}
+
+		.post-meta a:hover{
+		    border-bottom: 1px solid #fff;
+		}
+
+		/* side */
+		.sidebar h1, h2, h3, h4, h5, h6 {
+		    font-weight: normal;
+		    line-height: 110%;
+		    color: #999;
+		}
+		.sidebar{
+		    padding: 0 10px 0 0px;
+		    margin-left:35px;
+			}
+
+		.sidebar .widget_search input, #footer .widget_search input {
+		    width: 95%;
+		}
+
+		.widget {
+		    margin: 0px 0 40px 20px;
+		    padding: 30px;
+		    border: none;
+		    background: none;
+		    float: left;
+		    width: 100%;
+		    background: #fff;
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+		}
+	
+		.widget h3 {
+		    font-size: 24px !important;
+		    text-transform: uppercase;
+		    padding-top: 3px;
+		    color: #444;
+		}
+
+		.social_icons a{
+			float: left;
+		    background: #eee;
+		    margin-right: 13px;
+			margin-left: 12px;
+		    width: 44px;
+		    height: 44px !important;
+		    border-radius: 90%;
+		    line-height: 44px;
+		    text-align: center;
+		    color: #fff;
+		    font-size: 17px;
+		}
+
+
+
+		.widget-line {
+		    width: 305px;
+		    margin-bottom: 20px;
+		    border-bottom: 2px solid #eee;
+		    position: relative;
+		    padding: 0 20px;
+		    margin: 0px 0 20px -20px;
+		    z-index: -1;
+		}
+
+		.recent_posts .widgett, .category_posts .widgett {
+		    margin: 0px 0 30px 0;
+		    padding-bottom: 25px;
+		    border-bottom: 1px solid #ededed;
+		    padding-right: 30px;
+		    padding-left: 30px;
+		    margin-left: -30px;
+		}
+		
+		.wttitle {
+		}
+
+		.wttitle h4{
+		    line-height: 18px;
+		    margin-top: 9px;
+		}
+
+		.wttitle h4 a{
+		    font-size: 16px !important;
+		}
+		
+		.widget ul {
+		    list-style: square !important;
+		    margin: 0;
+		    padding: 0;
+		}
+
+		.widget ul li {
+		    list-style-type: none;
+		    padding-left: 15px;
+		}
+
+		.widget ul li a {
+		    font-size: 15px;
+		    color: #999;
+		}
+
+		.widget_search form {
+		    height: 50px;
+		}
+
+		.widget_search form input{
+		    height: 44px;
+		    border: none;
+		    background: #eee;
+		    font-size: 15px;
+		    color: #aaa;
+		}
+
+
+
+		.sidebar .widget_search i, #footer .widget_search i{
+		    float: right;
+		    position: absolute;
+		    right: 50px;
+		    margin-top: -50px;
+		}
+
+		.widget.widget_text {
+		    color: #999;
+		    font-size: 16px;
+		}
+
+		.widget_tag_cloud a {
+		    font-size: 12px !important;
+		    text-transform: uppercase;
+		    color: #fff !important;
+		    padding: 0px 12px;
+		    margin-bottom: 4px !important;
+		    display: inline-block;
+		    border-radius: 2px;
+		}
+
+		.widget_categories ul li:before {
+		    width: 6px;
+		    height: 6px;
+		    background: #509BA0;
+		    margin-top: 15px;
+		    margin-left: -15px;
+		    position: absolute;
+		    border-radius: 1px;
+		    content: '';
+		}
+
+
+
+
+		/* pagenavi*/
+		.wp_pagenavi{
+			    margin: 0px 0 0px 0;
+		}
+		.wp_pagenavi ul li{
+			float:left;
+			margin: 10px;
+		    background: #fff;
+		    margin-right:1px;
+		    padding: 15px 18px;
+		    text-transform: uppercase;
+		    font-size: 16px;
+		    font-weight: bold;
+		    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.05);
+		}
+		
+
+		.wp-pagenavi a{
+		    color: #343434 !important;
+		}
+	
+		<!-- bottom -->
+
+		.bot1{
+			background-color: rgb(58,192,199);
+		}
+
+		.pagination{
+			position: relative;
+			left: 370px;
+		}
+
+
+		.book{
+			margin: 0 auto;
+		}
+
+		.social img{
+
+			float: left;
+			margin-left: 28px;
+		}
+		.hot{
+			margin: 20px auto;
+
+		}
+
+		.hot .hot_span{
+			font-size: 20px;
+			text-align: center;
+		}
+
+		.tags {
+		    width: 100%;
+		    float: left;
+		    padding-bottom: 25px;
+		    font-style: italic;
+		    word-break: break-all;
+		}
+
+		.tags i{	
+		    color: #000;
+		    font-size: 16px;
+		    margin-right: 5px;
+		}
+		
+		.tags a{
+		    font-style: italic;
+		}
+
+		.author-info-wrap {
+		    padding: 35px 0px 27px 0px;
+		    margin-top: 0px;
+		    float: left;
+		    width: 100%;
+		}
+
+		.blogAuthor {
+		    float: left;
+		}
+
+		.authorBlogName {
+		    position: relative;
+		    text-transform: uppercase;
+		    font-size: 18px;
+		    font-weight: bold;
+		    width: 100%;
+		}
+
+		.author-info-wrap .bibliographical-info {
+		    padding-right: 25px;
+		}
+
+		.author-info-wrap .blogAuthor img {
+		    margin-left: 25px;
+		}
+
+		.blogAuthor img {
+		    margin-right: 25px;
+		    border-radius: 90%;
+		}
+		
+		/* related*/
+
+		.relatedPosts {
+		    margin-bottom: 50px;
+		    background: #fff;
+    		box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+		    padding: 40px 27px 45px 27px;
+		}
+
+		.relatedtitle{
+		    text-align: center;
+		    text-transform: uppercase;
+		}
+
+		.relatedtitle h4{
+			margin-bottom: 220px;
+			font-family: Verdana !important;
+		    color: #333;
+		    font-size: 30px !important;
+
+		}
+
+		.one_third h4 a{
+			width: 200px;
+			display: block;
+			white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+			}
+
+
+		.one_half, .one_third, .two_thirds, .one_fourth, .three_fourths, .one_fifth, .two_fifth, .three_fifths, .four_fifths {
+		    position: relative;
+		    margin: 0;
+		    margin-right: 3%;
+		    float: left;
+		}
+
+
+		.related h4 {
+		    font-size: 14px !important;
+		    text-transform: uppercase;
+		    line-height: 22px;
+
+		}
+
+		.relatedPosts .last{
+			margin-right: 0;
+		}
+
+		.related .post-meta-time {
+		    float: left;
+		    font-size: 14px;
+		    color: #bbb;
+		    font-style: italic;
+		    background: none;
+		    line-height: 14px;
+		}
+
+		/* change_artical */
+		.post-navigation{
+		    margin-bottom: 50px;
+		    background: #fff;
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+		    float: left;
+		    background: #fff;
+		    margin-top: 50px;
+		    width: 100%;
+		    text-transform: uppercase;
+		    padding: 0;
+		}
+
+		.post-navigation a{
+			transition: all 0s ease-in-out;
+		}
+		
+		.link-title-previous, .prev-post-title {
+		    float: left;
+		}
+		.link-title-next, .next-post-title {
+			text-align: right;
+		    float: right;
+		}
+
+		.link-title-previous {
+		    padding: 30px 0 25px 25px;
+		    width: 50%;
+		}
+
+		.link-title-next {
+		    padding: 30px 25px 25px 0;
+		    width: 50%;
+		}
+
+		.link-title-previous span{
+		    float: left;
+		    border-bottom: 1px solid;
+		    text-transform: uppercase;
+		    line-height: 22px;
+		    font-size: 14px;
+		}
+
+		.link-title-next span{
+		    float: right;
+		    border-bottom: 1px solid;
+		    text-transform: uppercase;
+		    line-height: 22px;
+		    font-size: 14px;
+		}
+
+		.prev-post-title, .next-post-title, .blogmore, .more-link {
+    		font-family: Oswald, "Helvetica Neue";
+		}
+
+		.prev-post-title, .next-post-title {
+		    width: 100%;
+		    font-size: 18px;
+		    margin-top: 5px;
+		}
+
+		.link-title-previous, .prev-post-title {
+		    float: left;
+		}
+
+		.link-title-previous,.link-title-next{
+			transition: all 0.25s ease-in-out;
+		}
+
+		.link-title-previous:hover, .link-title-next:hover {
+			background-color: rgb(80,155,160);
+		    color : white;
+		}
+
+		/* comment-form*/
+		.commentform{
+			margin-bottom: 0;
+		    float: left;
+		    width: 100%;
+		    background: #fff;
+		    padding-top: 10px;
+		    margin-top: 1px;
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+
+		}
+
+		.post-comments-title {
+		    text-align: center;
+		}
+
+		.related, .post-comments-title {
+		    float: left;
+		    width: 100%;
+		}
+		
+		.post-comments{
+		    margin-top: 40px;
+		    color: #333;
+    		font-size: 30px !important;
+		}
+
+		.relatedtitle h4, .commentlist h4.post-comments, h4.post-comments {
+		    display: inline-block;
+		    margin-bottom: 20px;
+		}
+
+		.relatedtitle, .commentlist .post-comments, h4.post-comments {
+		    text-align: center;
+		    text-transform: uppercase;
+		}
+
+		h3#reply-title, select, input, textarea, button, .link-category .title a {
+		    font-family: Raleway, "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
+		}
+
+		small {
+		    font-size: 14px;
+		    font-weight: normal;
+		}
+
+		h3#reply-title small a {
+		    background: #bbb;
+		    color: #fff;
+		    border-radius: 3px;
+		    padding: 12px 15px;
+		    text-transform: uppercase;
+		}
+
+		textarea#comment {
+		    width: 91%;
+		    margin-left: 25px;
+		}
+
+		form .commentfield {
+		    margin-left: 25px;
+		}
+
+		textarea {
+		    overflow: auto;
+		    padding-left: 10px !important;
+		}
+
+		input, select, textarea {
+		    padding: 5px;
+		    color: #4c4c4c;
+		    outline: none;
+		    background-color: #fff;
+		    border: 1px solid #e7e7e7;
+		    border-bottom: 1px solid #D9D9D9;
+		}
+		
+		select, input, textarea, button {
+		    font: 99% sans-serif;
+		    margin-bottom: 20px;
+		}
+
+		.form-submit{
+			margin: 18px 0 27px 0;
+		}
+
+		#submit {
+		    text-transform: uppercase;
+		    font-size: 14px;
+		    padding: 12px 20px;
+		    border-radius: 2px;
+		    background: #bbb;
+		    color: #fff;
+		    margin-left: 25px;
+		    transition: all 0.25s ease-in-out;
+		}
+		
+		#submit:hover{
+			background-color: rgb(80,155,160);
+		}
+
+		/* comment-list*/
+		.commentlist{
+			margin-bottom: 0;
+		    float: left;
+		    width: 100%;
+		    padding-top: 10px;
+		    margin-top: 1px;
+		    box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.05);
+		}
+
+		.commentlist li{
+			background: #fff;
+			padding-left: 15px;
+		}
+
+		.commentlist li .cl_name{
+			margin: 1px 0 10px 0;
+			color: rgb(80,155,160);
+		}
+
+		.commentlist li .cl_content p{
+		 	word-wrap:break-word;
+		}
+
+		.commentlist li .cl_time{
+			margin: 10px 0 0 0;
+		}
+
+
+		/* little-banner*/
+		<!-- 小轮播 -->
+
+		#container *{
+			padding: 0;
+			margin: 0;
+		}
+		#container {
+				width: 250px;
+				height: 400px;
+				overflow: hidden;
+		}
+
+		.sections,.section {
+			height:100%;
+		}
+		#container,.sections {
+			position: relative;
+		}
+		.section {
+			background-color: #000;
+			background-size: cover;
+			text-align: center;
+			color: white;
+		}
+
+
+
+
+	</style>
+{%endblock%}
+{%block body%}
+
+<div class="container m_cen">
+		<div class="row">
+			<div class="col-md-8 col-xs-12 col-sm-12 mtain">
+					<div class="list row">
+						<div class="col-xs-12">
+							<div class="topBlog">
+								<div class="blog-category">
+									<em>
+										<a href="">fashion</a>
+									</em>
+								</div>
+								<h2 class="c_title">
+									<a href="/artical/{{artical.id}}">{{artical.title}}</a>
+								</h2>
+							</div>
+							<div class="row">
+								<div class="blogImage col-xs-12">
+									<a href="">
+										<img class="img-responsive img-rounded" src="/static/myblog/articalImages/thumbnail_750_400/{{artical.id}}.jpg">
+									</a>
+								</div>
+							</div>
+							<div class="entry">
+								<div class="meta">
+									<div class="blogContent">
+										<div class="blog_content">
+											<p>
+												{{artical.content}}
+											</p>
+											<p>
+											</p>
+										</div>
+									</div>
+									<div class="tags">
+										<i class="fa fa-tags"></i>
+										<!--
+											{% for each in articaltags%}
+											<a href="">{{each.name}}</a>
+											{% endfor %}
+										-->
+										<a href="">dinner</a>,
+										<a href="">food</a>,
+										<a href="">lifestyle</a>,
+									</div>
+									<div class="blogBottom">
+										<div class="post-meta">
+											<a class="post-meta-time" href="">May 23, 2014</a>
+											<a class="post-meta-author" href="">by Monkey</a>
+										</div>
+									</div>
+									<div class="author-info-wrap">
+										<div class="blogAuthor">
+											<a href="">
+												<img width="100" height="100" src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-avatar-150x150.jpg" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" alt="">
+											</a>
+										</div>
+										<div class="authorBlogName">Written by Monkey</div>
+										<div class="bibliographical-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam aliquam massa quis mauris sollicitudin commodo venenatis ligula commodo.</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+
+
+					</div>
+						<div class="row">
+							<div class="relatedPosts col-md-12">
+								<div class="relatedtitle"><h4>Related Posts</h4></div>
+
+								<div class="related">
+									{% for each in related %}
+									<div class="one_third">
+										<div class="img"><a href="{% url 'blog:artical' each.id%}"><img class="img-responsive" width="220" height="130" src="/static/myblog/articalImages/thumbnail_345_190/{{each.id}}.jpg" alt=""></a></div>
+										<h4><a href="">{{each.title}}</a></h4>
+										<a href="{% url 'blog:artical' each.id%}" class="post-meta-time">{{each.pub_time}}</a>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="post-navigation col-md-12">
+								<a href="/artical/{{prevartical.id}}">
+									<div class="link-title-previous">
+										<span>« Previous post</span>
+										<div class="prev-post-title">{{prevartical.title}}</div>
+									</div>
+									
+								</a>
+								<a href="/artical/{{nextartical.id}}">
+									<div class="link-title-next">
+										<span>Next post »</span>
+										<div class="next-post-title">{{nextartical.title}}</div>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="commentlist">
+							<ul>
+								{% for each in comments%}
+								<li>
+									<div class="cl_name"><span>{{each.name}}</span></div>
+									<div class="cl_content"><p>{{each.text}}</p></div>
+									<div class="cl_time"><span>{{each.pub_time | date:"Y-n-d"}}</span></div>
+								</li>
+								{%endfor%}
+
+							</ul>
+						</div>
+
+						<div class="row">
+							<div class="post-navigation comment_ch_page col-md-12">
+								<a href="">
+									<div class="link-title-previous">
+										<div class="ch_comment prev-post-title pre_comment">Previous</div>
+									</div>
+								</a>
+								<a href="">
+									<div class="link-title-next">
+										<div class="ch_comment next-post-title next_comment">Next</div>
+									</div>
+								</a>
+								<div>
+									<span class="comment_page"></span>
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="commentform">
+							<div class="titleborderOut">
+								<div class="titleborder"></div>
+							</div>
+							<div class="post-comments-title">
+								<h4 class="post-comments">Leave a Comment</h4>
+							</div>
+							<div class="comment-respond">
+								<h3 class="comment-reply-title">
+									<!-- <small><a href="" id="cancel-comment-reply-link">Cancel Reply</a></small> -->
+								</h3>
+								<form action="" method="post" class="comment-form">
+									<div>
+										<textarea name="comment" id="comment" cols="45" rows="8" tabindex="4" aria-required="true"></textarea>
+									</div>
+									<div class="commentfield">
+										<labelp for="author">Name
+											<small>(required)</small>
+										</labelp>
+										<br>
+										<input type="text" name="author" id="author" tabindex="1">
+									</div>
+									<div class="commentfield">
+										<labelp for="email">Mail
+											<small>(required)</small>
+										</labelp>
+										<br>
+										<input type="text"  id="email" tabindex="1">
+									</div>
+									<p class="form-submit">
+										<input name="submit" type="submit" id="submit" class="submit" onclick="return false" value="Leave a Comment">
+									</p>
+								</form>
+							</div>
+						</div>
+					</div>
+			
+	<!-- right-bar-->
+
+			<div class="right_info col-md-4 hidden-sm hidden-xs">
+				<div class="row">
+					<div class="sidebar ">
+						<div class="widget widget_text col-xs-12 hidden-xs hidden-sm">
+							<h3>About me</h3>
+							<div class="widget-line"></div>
+							<div class="row">
+								<div class="textwidget col-xs-12">
+									<img class="img-responsive" src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-avatar.jpg">
+									<br>
+									你好, 我是Yin， 一个喜欢享受生活的人， 这是我的博客， 在这里记录着我生活的点滴。
+								</div>
+							</div>
+						</div>
+			
+						<!-- widget_text over-hear -->
+
+						<div class="widget socials">
+							<div class="widgett">
+								<div class="social_icons">
+									<div>
+										<a href="">
+											<img class="img-responsive" src='{%static "myblog/icons/21.png"%}' alt="">
+											<i class="fa fa-some"></i>
+										</a>
+										<a href="">
+											<img class="img-responsive" src='{%static "myblog/icons/23.png"%}' alt="">
+											<i class="fa fa-some"></i>
+										</a>
+										<a href="">
+											<img class="img-responsive" src='{%static "myblog/icons/7.png"%}' alt="">
+											<i class="fa fa-some"></i>
+										</a>
+										<a href="">
+											<img class="img-responsive" src='{%static "myblog/icons/10.png"%}' alt="">
+											<i class="fa fa-some"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- social over-hear -->
+
+						<div class="widget category_posts">
+							<h3>Popular Posts</h3>
+							<div class="widget-line"></div>
+							{%for each in populars%}
+							<div class="widgett">
+								<div class="imgholder">
+									<a href="{% url 'blog:artical' each.id %}" title="Permanent Link to OUT TRIP INTO THE WILD">
+										<img class="img-responsive" src="/static/myblog/articalImages/thumbnail_285_155/{{each.id}}.jpg">
+									</a>
+								</div>
+								<div class="wttitle">
+									<h4>
+										<a href="{% url 'blog:artical' each.id %}">{{each.title}}</a>
+									</h4>
+								</div>
+							</div>
+							{%endfor%}
+							
+						</div>
+						<!-- category_posts over-hear -->
+						<div class="widget widget_categories">
+							<h3>Categories</h3>
+							<div class="widget-line"></div>
+							<ul>
+								{%for each in tags%}
+								{%if forloop.counter < 8%}
+								<li class="cat-item cat-item-1"><a href="">{{each.name}}</a></li>
+								{%endif%}
+								{%endfor%}
+							</ul>
+						</div>
+						<!-- widget_categories over-hear -->
+						<div class="widget widget_search">
+							<h3>SEARCH</h3>
+							<div class="widget-line"></div>
+							<form method="get" class="searchform" action="">
+								<input type="text" value="Search and hit Enter...">
+								<i class="fa fa-search search-desktop"></i>
+							</form>
+						</div>
+						<!-- widget_search over-hear -->
+						<div class="widget widget_text">
+							<h3>Advertising section</h3>
+							<div class="widget-line"></div>
+							<div class="textwidget">
+								<a href=""><img src="" alt=""></a>
+							</div>
+						</div>
+						<!-- widget_text1 over-hear -->
+						<div class="widget widget_tag_cloud">
+							<h3>Tags</h3>
+							<div class="widget-line"></div>
+							<div class="tagcloud">
+								{%for each in tags%}
+								<a href="" class="tag-link-1 tag-link-position-1" style="font-size: 8pt;">{{each.name}}</a>
+								{%endfor%}
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+{%endblock%}
