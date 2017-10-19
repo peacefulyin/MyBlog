@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>主页</title>
+	<title>{%block title %}主页{% endblock %}</title>
 	{%block source%}{%endblock%}
 	{%block js%}{%endblock%}
 	{%load static from staticfiles%}
@@ -290,6 +290,7 @@
 		    color: #ccc;
 		    margin-bottom: 5px;
 		    margin-top: 50px;
+    		    padding: 0 280px;
 		}
 
 		.footer_widget1, .footer_widget2, .footer_widget3 {
@@ -371,7 +372,7 @@
 				<div class="logo-inner">
 					<div id="logo">
 						<a href="">
-							<img src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2016/09/brixton-alternate-logo.png">
+							<img src="/static/myblog/images/top_logo.png">
 						</a>							
 					</div>		
 				</div>
@@ -556,12 +557,12 @@
 			<div id="footer">
 				<div class="block3">
 					<a href=""></a>
-					<h5 class="block3-instagram-title">FOLLOW ME ON INSTAGRAM</h5>
+					<h5 class="block3-instagram-title">ENJOY EVERY MOMENT</h5>
 				</div>
 			<div class="footerinside">
 				<div class="block_footer_text">
 					<p></p>
-					<p>“I started with Brixton to provide you with daily fresh new ideas about trends. It is a very clean and elegant Wordpress Theme suitable for every blogger. Perfect for sharing your lifestyle.”</p>
+					<p>“I started to provide you with daily fresh new ideas about trends. It is a very clean and elegant Wordpress Theme suitable for every blogger. Perfect for sharing your lifestyle.”</p>
 					<p></p>
 				</div>
 				<div class="footer_widget">
@@ -575,7 +576,7 @@
 							<div class="textwidget">
 								<br>
 								<a href="">
-									<img src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-footer-logo.png">
+									<img src="/static/myblog/images/bottom_logo.png">
 								</a>
 								<br>
 							</div>

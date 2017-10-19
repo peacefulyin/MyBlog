@@ -69,6 +69,7 @@
 
 		    if(event.target.className=='ch_page'){
 		        var num = $(this).text();
+			now_page = Number(num);
 			}else if(event.target.className=='prev_page'){
 		        if(now_page>1){
 		            var num = now_page-1;
@@ -79,11 +80,21 @@
 			        var num = now_page+1;
 					now_page+=1
 				}
-
 			}
-			console.info(now_page);
 
+			if(now_page>=totalpage){
+			    $('.next_page').parents('li').hide()
+	                }else {
+			    $('.next_page').parents('li').show()
+            		}
 
+            		if(now_page > 1){
+			    $('.prev_page').parents('li').hide()
+            		}else {
+			    $('.prev_page').parents('li').show()
+         	        }
+
+			
 
 			$.get('/getArticals/'+num,function (dic) {
 				$.each(dic.articals,function (index,item) {
@@ -102,12 +113,13 @@
 			if (page_num > 1) {
 				$('.prev_page').attr('href',Number(num) - 1);
 			}
+			
 
-			if(Number(num)>1 && Number(num)<Number(totalpage)-1){
+			if(now_page > 1 && now_page < totalpage -1){
 			    var page_bottons = $('.ch_page');
 				$.each(page_bottons,function (index,item) {
-					$(this).text(Number(num)-1+index)
-                })
+					$(this).text(now_page -1 + index)
+	               		 })
 			}
 
 			$('html, body').animate({
@@ -736,13 +748,13 @@
 		<!-- 轮播（Carousel）项目 -->
 		<div class="carousel-inner">
 			<div class="item active">
-				<img src="{%static 'myblog/images/nbanner.png'%}" alt="First slide">
+				<img src="{%static 'myblog/images/nbanner.jpg'%}" alt="First slide">
 			</div>
 			<div class="item">
-				<img src="{%static 'myblog/images/nbanner.png'%}" alt="Second slide">
+				<img src="{%static 'myblog/images/wat_banner.jpg'%}" alt="Second slide">
 			</div>
 			<div class="item">
-				<img src="{%static 'myblog/images/nbanner.png'%}" alt="Third slide">
+				<img src="{%static 'myblog/images/razor_banner.jpg'%}" alt="Third slide">
 			</div>
 		</div>
 		<!-- 轮播（Carousel）导航 -->
@@ -838,7 +850,7 @@
 							<div class="widget-line"></div>
 							<div class="row">
 								<div class="textwidget col-xs-12">
-									<img class="img-responsive" src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-avatar.jpg">
+									<img class="img-responsive" src="/static/myblog/images/my-avatar.jpg">
 									<br>
 									你好, 我是Yin， 一个喜欢享受生活的人， 这是我的博客， 在这里记录着我生活的点滴。
 								</div>
@@ -933,13 +945,13 @@
 						</div>
 						<!-- widget_tag_cloud over-hear -->
 						<div class="widget widget_fbw_id">
-							<h3>Like Us On Facebook</h3>
+							<h3>Like Book</h3>
 							<div class="widget-line"></div>
 							<div class="row">
 								<div id="container">
 									<div class="sections">
 										<div class="section"  id="section0"><img src='{%static "myblog/lunbo/images/穿过生命的泥泞时刻.jpg"%}' alt=""><h3></h3></div>
-										<div class="section"  id="section1"><img src='{%static "myblog/lunbo/images/故事.jpg"%}' alt=""><h3></h3></div>
+										<div class="section"  id="section1"><img src='{%static "myblog/lunbo/images/万物即聪明又奇妙.jpg"%}' alt=""><h3></h3></div>
 										<div class="section"  id="section2"><img src='{%static "myblog/lunbo/images/亲爱的甜橙树.jpg"%}' alt=""><h3></h3></div>
 										<div class="section"  id="section3"><img src='{%static "myblog/lunbo/images/万物即聪明又奇妙.jpg"%}' alt=""><h3></h3></div>
 									</div>

@@ -137,3 +137,24 @@ def send_data(request):
 
 def base(request):
     return render(request,'myblog/base.html')
+
+from django.http import StreamingHttpResponse
+
+def send_resume(request):
+    def file_iterator(file_name, chunk_size=512):
+        with open(file_name, 'rb') as f:
+            print f.name
+            while True:
+                c = f.read(chunk_size)
+                if c:
+                    yield c
+                else:
+                    break
+
+    the_file_name = "/var/www/Blog/static/myblog/files/Yin_Presume.pdf"
+    response = StreamingHttpResponse(file_iterator(the_file_name))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format("YinWeiQi_Python_Resume.pdf")
+
+    return response
+

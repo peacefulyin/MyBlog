@@ -1,4 +1,5 @@
 {% extends "myblog/base.html" %}
+{%block title %}文章{% endblock %}
 {%block source%}
 	{%load static from staticfiles%}
 
@@ -920,11 +921,11 @@
 									<div class="author-info-wrap">
 										<div class="blogAuthor">
 											<a href="">
-												<img width="100" height="100" src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-avatar-150x150.jpg" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" alt="">
+												<img width="100" height="100" src="/static/myblog/images/avatar_150.jpg" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" alt="">
 											</a>
 										</div>
 										<div class="authorBlogName">Written by Monkey</div>
-										<div class="bibliographical-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam aliquam massa quis mauris sollicitudin commodo venenatis ligula commodo.</div>
+										<div class="bibliographical-info">And those who were seen dancing were thought to be insane by those who could not hear the music..</div>
 									</div>
 								</div>
 							</div>
@@ -1046,7 +1047,7 @@
 							<div class="widget-line"></div>
 							<div class="row">
 								<div class="textwidget col-xs-12">
-									<img class="img-responsive" src="http://brixton.premiumcoding.com/demo5/wp-content/uploads/2015/02/brixton-avatar.jpg">
+									<img class="img-responsive" src="/static/myblog/images/my-avatar.jpg">
 									<br>
 									你好, 我是Yin， 一个喜欢享受生活的人， 这是我的博客， 在这里记录着我生活的点滴。
 								</div>

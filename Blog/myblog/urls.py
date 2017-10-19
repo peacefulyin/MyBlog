@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^about/$',views.about),
     url(r'^artical/(\d+)$',views.show_artical,name='artical'),
     url(r'^base$', views.base),
-
+    url(r'files/get_resume$', views.send_resume),
 ]

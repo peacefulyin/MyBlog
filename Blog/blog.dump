@@ -1,0 +1,450 @@
+-- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
+--
+-- Host: localhost    Database: blog
+-- ------------------------------------------------------
+-- Server version	5.7.19-0ubuntu0.16.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
+  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add user',2,'add_user'),(5,'Can change user',2,'change_user'),(6,'Can delete user',2,'delete_user'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add permission',4,'add_permission'),(11,'Can change permission',4,'change_permission'),(12,'Can delete permission',4,'delete_permission'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add user',7,'add_user'),(20,'Can change user',7,'change_user'),(21,'Can delete user',7,'delete_user'),(22,'Can add artical',8,'add_artical'),(23,'Can change artical',8,'change_artical'),(24,'Can delete artical',8,'delete_artical'),(25,'Can add comment',9,'add_comment'),(26,'Can change comment',9,'change_comment'),(27,'Can delete comment',9,'delete_comment'),(28,'Can add s tag',10,'add_stag'),(29,'Can change s tag',10,'change_stag'),(30,'Can delete s tag',10,'delete_stag');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+LOCK TABLES `auth_user` WRITE;
+/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$30000$RFDFWqsdyNsE$mDfGYN84D1DGAKJeYeV2a9zgcJT0pAC0FxmWpIwHnfY=','2017-09-21 04:58:44.378895',1,'yin','','','7317@qq.com',1,1,'2017-08-28 05:14:08.718258');
+/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),
+  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+LOCK TABLES `auth_user_groups` WRITE;
+/*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_user_permissions`
+--
+
+LOCK TABLES `auth_user_user_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),
+  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2017-08-28 05:22:38.381617','1','Monkey',1,'',7,1),(2,'2017-08-28 05:23:40.600138','1','你好',2,'已修改 name 。',7,1),(3,'2017-08-28 13:29:53.647646','2','yin',1,'',7,1),(4,'2017-08-28 13:32:24.476640','1','我的文章',1,'',8,1),(5,'2017-08-28 14:47:14.061543','3','sdass',1,'',7,1),(6,'2017-08-28 14:47:22.540033','4','adsadwqeqw',1,'',7,1),(7,'2017-08-28 14:47:28.517211','5','agdsbcvsfwe',1,'',7,1),(8,'2017-08-28 14:47:31.817414','5','agdsbcvsfwe',2,'没有字段被修改。',7,1),(9,'2017-08-28 14:47:39.897319','6','rewtdsvdxv',1,'',7,1),(10,'2017-08-28 14:47:50.112843','7','5dsgcxvxcb ',1,'',7,1),(11,'2017-08-28 14:48:02.330722','8','sdfaczxad',1,'',7,1),(12,'2017-08-28 14:48:08.287596','9','sdsaegfhkjhk',1,'',7,1),(13,'2017-08-28 14:48:14.487174','10','4345fds',1,'',7,1),(14,'2017-08-28 14:48:18.516106','11','dsafew',1,'',7,1),(15,'2017-08-28 14:48:28.837174','12','hgfgrtew',1,'',7,1),(16,'2017-08-28 14:48:34.738050','13','546523421321',1,'',7,1),(17,'2017-08-28 14:48:46.703096','14','dshonnkl',1,'',7,1),(18,'2017-08-28 14:55:15.600491','16','323123af',1,'',7,1),(19,'2017-08-28 14:55:32.075379','17','2131241',1,'',7,1),(20,'2017-08-28 14:55:34.166483','18','53141',1,'',7,1),(21,'2017-08-28 14:55:36.364208','19','43256412',1,'',7,1),(22,'2017-08-28 14:55:38.370338','20','12412516',1,'',7,1),(23,'2017-08-28 14:55:40.483658','21','65312515',1,'',7,1),(24,'2017-08-28 14:55:43.183973','22','51512312',1,'',7,1),(25,'2017-08-28 14:55:45.609587','23','65475523',1,'',7,1),(26,'2017-08-28 14:55:47.493839','24','312541251',1,'',7,1),(27,'2017-08-28 15:25:03.456862','1','你好',3,'',7,1),(28,'2017-08-29 05:44:07.421473','1','我的文章',2,'[]',8,1),(29,'2017-08-29 14:08:56.187544','1','我的文章',2,'[{\"changed\": {\"fields\": [\"content\"]}}]',8,1),(30,'2017-09-02 14:17:45.236494','2','ICO迎来监管大棒',1,'[{\"added\": {}}]',8,1),(31,'2017-09-02 14:17:47.072320','2','ICO迎来监管大棒',2,'[]',8,1),(32,'2017-09-02 14:18:19.090866','3','雷军投资的星空琴行',1,'[{\"added\": {}}]',8,1),(33,'2017-09-02 14:19:03.190524','4','Google想狙击苹果，抢占AR移动端市场？需要做的还有很多',1,'[{\"added\": {}}]',8,1),(34,'2017-09-02 14:19:31.974716','5','拥有自己的虚拟餐厅？',1,'[{\"added\": {}}]',8,1),(35,'2017-09-02 14:20:25.582205','6','Instagram数百万账户信息遭黑客盗取',1,'[{\"added\": {}}]',8,1),(36,'2017-09-02 14:21:02.767989','7','电影中的职场',1,'[{\"added\": {}}]',8,1),(37,'2017-09-02 14:21:31.293177','8','继发布云服务应用',1,'[{\"added\": {}}]',8,1),(38,'2017-09-02 14:22:05.863756','9','谷歌母公司Alphabet完成重组',1,'[{\"added\": {}}]',8,1),(39,'2017-09-02 14:22:38.828207','10','36氪首发 | 大神陪玩零抽成',1,'[{\"added\": {}}]',8,1),(40,'2017-09-02 14:23:18.923056','11','手机修图已经out',1,'[{\"added\": {}}]',8,1),(41,'2017-09-02 14:23:40.454517','12','人工智能如何改变商业游戏规则',1,'[{\"added\": {}}]',8,1),(42,'2017-09-02 14:24:18.215703','13','暴风CFO姜浩',1,'[{\"added\": {}}]',8,1),(43,'2017-09-02 14:24:38.008334','14','哪有什么职场瓶颈',1,'[{\"added\": {}}]',8,1),(44,'2017-09-04 08:55:49.290348','1','STag object',1,'',10,1),(45,'2017-09-04 08:56:02.483433','2','STag object',1,'',10,1),(46,'2017-09-04 08:56:07.730915','3','STag object',1,'',10,1),(47,'2017-09-04 08:56:41.208884','4','STag object',1,'',10,1),(48,'2017-09-04 08:56:56.918918','5','STag object',1,'',10,1),(49,'2017-09-04 08:57:00.410053','6','STag object',1,'',10,1),(50,'2017-09-04 08:57:07.269491','7','STag object',1,'',10,1),(51,'2017-09-04 08:57:13.104484','8','STag object',1,'',10,1),(52,'2017-09-04 08:57:29.445158','9','STag object',1,'',10,1),(53,'2017-09-04 08:57:38.719392','10','STag object',1,'',10,1),(54,'2017-09-04 08:57:54.127857','11','STag object',1,'',10,1),(55,'2017-09-04 08:58:17.142071','12','STag object',1,'',10,1),(56,'2017-09-04 08:58:32.603016','13','STag object',1,'',10,1),(57,'2017-09-04 08:58:40.505335','14','STag object',1,'',10,1),(58,'2017-09-04 09:00:00.438138','15','STag object',1,'',10,1),(59,'2017-09-04 09:14:47.816280','24','312541251',3,'',7,1),(60,'2017-09-04 09:14:47.820859','23','65475523',3,'',7,1),(61,'2017-09-04 09:14:47.823790','22','51512312',3,'',7,1),(62,'2017-09-04 09:14:47.825220','21','65312515',3,'',7,1),(63,'2017-09-04 09:14:47.826732','20','12412516',3,'',7,1),(64,'2017-09-04 09:14:47.827831','19','43256412',3,'',7,1),(65,'2017-09-04 09:14:47.830531','18','53141',3,'',7,1),(66,'2017-09-04 09:14:47.831599','17','2131241',3,'',7,1),(67,'2017-09-04 09:14:47.833992','16','323123af',3,'',7,1),(68,'2017-09-21 05:32:33.250072','14','哪有什么职场瓶颈',2,'[]',8,1);
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(4,'auth','permission'),(2,'auth','user'),(5,'contenttypes','contenttype'),(8,'myblog','artical'),(9,'myblog','comment'),(10,'myblog','stag'),(7,'myblog','user'),(6,'sessions','session');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2017-08-28 05:07:29.439373'),(2,'auth','0001_initial','2017-08-28 05:07:29.647733'),(3,'admin','0001_initial','2017-08-28 05:07:29.720755'),(4,'admin','0002_logentry_remove_auto_add','2017-08-28 05:07:29.736826'),(5,'contenttypes','0002_remove_content_type_name','2017-08-28 05:07:29.781507'),(6,'auth','0002_alter_permission_name_max_length','2017-08-28 05:07:29.801152'),(7,'auth','0003_alter_user_email_max_length','2017-08-28 05:07:29.823240'),(8,'auth','0004_alter_user_username_opts','2017-08-28 05:07:29.833894'),(9,'auth','0005_alter_user_last_login_null','2017-08-28 05:07:29.855395'),(10,'auth','0006_require_contenttypes_0002','2017-08-28 05:07:29.856780'),(11,'auth','0007_alter_validators_add_error_messages','2017-08-28 05:07:29.866310'),(12,'auth','0008_alter_user_username_max_length','2017-08-28 05:07:29.888361'),(13,'myblog','0001_initial','2017-08-28 05:07:29.941132'),(14,'sessions','0001_initial','2017-08-28 05:07:29.959567'),(15,'myblog','0002_auto_20170828_1322','2017-08-28 05:22:21.619056'),(16,'myblog','0003_artical_img_url','2017-08-28 13:29:15.275848'),(17,'myblog','0004_comment','2017-08-30 07:47:20.780977'),(18,'myblog','0005_remove_comment_like','2017-08-30 08:25:17.257030'),(19,'myblog','0006_artical_tag','2017-09-02 09:16:52.359991'),(20,'myblog','0007_auto_20170902_2214','2017-09-02 14:14:11.842699'),(21,'myblog','0008_auto_20170902_2215','2017-09-02 14:15:24.660264'),(22,'myblog','0009_auto_20170904_1422','2017-09-04 06:23:02.750346'),(23,'myblog','0010_stag','2017-09-04 08:53:02.453613'),(24,'myblog','0011_auto_20170904_1702','2017-09-04 09:14:58.043190'),(25,'myblog','0012_auto_20170904_1703','2017-09-04 09:14:58.056013'),(26,'myblog','0013_auto_20170904_1713','2017-09-04 09:14:58.070097'),(27,'myblog','0014_auto_20170907_2327','2017-09-07 15:31:52.979256'),(28,'myblog','0015_auto_20170907_2327','2017-09-07 15:31:53.027435'),(29,'myblog','0016_auto_20170907_2331','2017-09-07 15:31:53.079475'),(30,'myblog','0017_auto_20170907_2331','2017-09-07 15:31:53.123729');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('iniiudtq0njna6f4eg6pbicxvqg1ha17','ZjIwYjRjNDZjM2U4MWQ3ZTNkYjMyYWI0ZTA4YTYwMTlkZjgyYTBmMTp7Il9hdXRoX3VzZXJfaGFzaCI6Ijk5ZDZmMzJlZjgyY2E2ZTBmYjI5MzhmNTljYzQ5NjQ5MDFmOGFkOTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2017-09-11 05:19:48.862344'),('ynilomuzycuf0u0cvoby038uiw4wdp9a','NzRlYzc4NTMwYjYwODY1NWYxMTkwNGJmZWE4Yzc4YjA3ZjgxYTUxMzp7Il9hdXRoX3VzZXJfaGFzaCI6ImRlN2FmN2QyZjNmNTY5NjZmMTllMjQxZDEzNThhNDk1NTE4M2Q5MDciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2017-10-05 04:58:44.381894');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `myblog_artical`
+--
+
+DROP TABLE IF EXISTS `myblog_artical`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `myblog_artical` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `content` longtext NOT NULL,
+  `pub_time` datetime(6) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `img_url` varchar(100) DEFAULT NULL,
+  `tag` varchar(15) NOT NULL,
+  `like_num` int(11) NOT NULL,
+  `read_num` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `myblog_artical_user_id_a84fa721_fk_myblog_user_id` (`user_id`),
+  CONSTRAINT `myblog_artical_user_id_a84fa721_fk_myblog_user_id` FOREIGN KEY (`user_id`) REFERENCES `myblog_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `myblog_artical`
+--
+
+LOCK TABLES `myblog_artical` WRITE;
+/*!40000 ALTER TABLE `myblog_artical` DISABLE KEYS */;
+INSERT INTO `myblog_artical` VALUES (1,'我的文章','加林金对乔纳森·布劳(Jonathan Blow)的作品《The Witness》定价39.99美元表示赞赏。这远远超过了绝大多数独立游戏的价格水平。尽管参与了Steam的各种打折和促销活动，该游戏的价格始终没低于19.99美元。与其从一开始就打折出售游戏，开发者也许应当花更多时间，向玩家解释为什么游戏配得上高价。\r\n\r\n加林金在文章最后写道，我知道，有些后果会令人无法接受，有些人会表示他们没能力为你的游戏多支付10美元，','2017-08-28 13:31:00.000000',2,'http://img1.gtimg.com/hb/pics/hv1/64/52/2235/145344199.png','lifestyle',0,0),(2,'ICO迎来监管大棒','近期，火爆且混乱的ICO市场如期迎来监管大棒。8月31日，互联网金融协会专门提示ICO风险，称“近期，各类以ICO（Initial CoinOfferings）名义进行筹资的项目在国内迅速增长，扰乱了社会经济秩序并形成了较大风险隐患”；另据财新报道，一场原本于9月2日举行的区块链盛会被监管（北京银监局）叫停，据称监管对ICO已经有了判断，相关文件拟于近期下发。\r\n笔者之前谈过，当前的市场环境下，哪里有风险，哪里便会有监管。ICO的泡沫蕴藏着巨大的风险，被纳入监管的框架并不令人意外，在本文中便不再详谈。我们换个角度，不妨展望下，ICO被监管本身，对区块链生态各方会有着怎样的影响？谁最受伤？尤其是比特币，价格会大跌吗？\r\nCO的最初功能，是为区块链相关初创企业募集资金，以太坊是最成功的例子。2014年7月份，以太坊团队创建以太坊基金会，进行了为期42天的创世纪预售，共发行7200万以太币，累计募集31,531个比特币，以当时比特币市价计算，约合人民币1.14亿元。','2017-09-01 23:17:00.000000',2,'none','lifestyle',0,0),(3,'雷军投资的星空琴行','9月2日，星空琴行关闭了全国多家门店。CEO周楷程在内部邮件中表示：“目前管理团队已经不持有星空股份，所以一直在等待股东的决策，但基于目前的情况，原股东无法确认新的追加资金。因此我们从2017年9月2日起暂停全国所有门店营业，其他等待进一步通知！”\r\n家长们并没有得到停课的通知。根据媒体报道，今日北京、上海多家琴行周围聚集了大量家长，要求退还课程费以及乐器押金。部分钢琴老师也表示，公司已经连续拖欠了7、8月的工资。目前已有家长向门店所在辖区派出所报警。','2017-09-01 23:18:00.000000',2,'none','lifestyle',0,0),(4,'Google想狙击苹果，抢占AR移动端市场？需要做的还有很多','援引外媒，据Google介绍，ARCore基于3个基本组件：第一个是运动追踪，通过双摄像头、内部传感器及视频素材估算手机的相对位置，使用户可以围绕一个固定对象移动，从任意方位查看；第二个是环境理解，使用相机来识别平面，确保现实环境中的虚拟对象不会在手机翻转时悬空且在倾斜时保持水平；第三个是光源感知，使虚拟道具能够根据光源变幻影子，增加体验的真实度。\r\nGoogle的ARCore跟虽然与苹果的ARKit相似，但还有很大差距。例如在环境理解方面，苹果的ARKit已经纳入了精确的空间测距、边缘感应等技术难度更高的功能，Google却只留下了简单的平面识别。这从二者释出的Demo就能明显感知\r\n不过舍弃Tango曾经专注的那些复杂“高阶功能”也让ARCore的运行相对稳定。对于终端普及，Google面临的更大问题可能是硬件适配。苹果的arkit平台能够支持任何iPhone与iPad，ARCore却只支持Google Pixel和三星S8Android7及以上版本。瞄准看似市场潜力更大的Android用户，Google也要应对Android设备的碎片化生态，适配不同摄像头、处理器，与不同供应商打交道。苹果的IOS则明显能占到规模化的便宜。','2017-09-01 23:19:00.000000',2,'none','lifestyle',0,0),(5,'拥有自己的虚拟餐厅？','厨师需要18个月的时间才能出师，但是 Nukebox 的 Food Truck Chef 手机游戏已经把这个时间大大缩短了。这款游戏在头10天内产生了超过300万次的下载量，而印度开发商表示，在前45天内，该公司的收入达到50万美元。\r\nNukebox Studios 是一家位于班加罗尔的游戏公司，Food Truck Chef 可以在 Android 和 iOS 上下载，目前已经是美国和100多个国家的第一大休闲游戏。对于印度来说这样的市场占有量并不常见，它表明，印度已经进入了109亿美元的游戏市场。\r\n大约三年前，Nukebox 作为工作室开始运营。最初有多15个各种各样的游戏想法，最终都没有成功实现。但是 Food Truck Chef 这款游戏，团队就打磨了18个月，结果也验证了团队的工作。Food Truck Chef 在应用商店的评级为4.5星，在 Google Play 和 iOS 上有成千上万的评价。用户下载的频率是每5秒下载一次，据说现在已经有400多万次下载。CEO  Amit Hardi 认为，公司可能会在几个星期内赢得游戏市场的比赛。','2017-09-01 23:19:00.000000',2,'none','lifestyle',0,0),(6,'Instagram数百万账户信息遭黑客盗取','2天前，Instagram对外公布，系统受到攻击，至少一名黑客试图窃取分名人账户的信息，系统此前存在漏洞，但已及时修复，普通用户不必担忧。\r\n而今天，据外媒报道，事实远比Instagram对外宣称的严重得多，黑客利用Instagram API的漏洞已入侵了数百万用户账户，获得了他们联系方式。\r\n黑客事件发生几小时后，网上就出现了一个名为Doxagram的数据库，可直接搜索用户联系方式，每次需付费10美元。黑客还提供了1000个KOL用户的列表方便搜索，其中包含Instagram上粉丝量排名前50的账号。\r\nInstagram的活跃全球用户超过7亿，黑客宣称他们已掌握了超过600万用户的账户信息。Instagra称万幸的是黑客只得到了联系方式，并没有获取账户密码。','2017-09-01 23:20:00.000000',2,'none','lifestyle',0,0),(7,'电影中的职场','假如你有一个学渣朋友，初中毕业考了技校，整天只想着抽烟打架泡妞，可忽然有一天，他发神经宣布要参加高考，而且目标是北大清华。\r\n假如你有一个学霸朋友，大学毕业后进了一家业内最顶尖的公司，在五年内成为全公司升职速度最快的明星级员工，现在他又想冲击行业最高的荣誉宝座。\r\n第一段故事估计有人已经猜到了，这是日本电影《垫底辣妹》的情节，改编自一本讲述真实励志逆袭故事的书——《年级倒数第一的辣妹一年内偏差值提升40以上并考入庆应大学的故事》（满满的公众号标题党的赶脚啊）。','2017-09-01 23:20:00.000000',2,'none','lifestyle',0,0),(8,'继发布云服务应用','Oracle 物联网 (IoT) 云服务近日宣布，产品可以让工业企业实行预建的 AI 算法。使用历史和实时的传感器数据，AI 可以做检测异常，预测机器何时停止工作，并帮助供应链管理。','2017-09-01 23:21:00.000000',2,'none','piano',0,0),(9,'谷歌母公司Alphabet完成重组','据彭博社报道，谷歌母公司Alphabet周五宣布组建一家新的控股公司XXVI Holdings Inc.，从而让谷歌完成从搜索引擎巨头，向一家各子业务独立运营的企业集团转变，以助于医疗、无人驾驶等周期较漫长的业务的发展。\r\nXXVI将拥有每一个Alphabet下设的公司的股权，包括谷歌在内。从法律上说，这个新架构，将谷歌与其他的业务部门，比如无人驾驶公司Waymo，以及医疗设备和数据公司Verily区隔开。\r\n谷歌联合创始人拉里·佩琦（ Larry Page）两年前组建了Alphabet，目的就是为了培养独立于谷歌运营的新业务。但目前严格从法律意义上说，那些内部称作“Other Bets”的资产，仍然属于谷歌的子公司性质。而日前宣布的这个全新的架构，将使得这些业务与谷歌处于同一个法律基础上，同属于Alphabet的子公司。\r\n谷歌也正式从一家股份有限公司，转变成有限责任公司（LLC）。根据谷歌发言人吉娜·威利·约翰逊（Gina Weakley Johnson），这个调整将不会改变谷歌的纳税方式，只会部分影响到，谷歌从一家上市公司，转变为控股公司下设的一项业务。根据在律师达纳·霍巴特（Dana Hobart），这个转变的目的是防止谷歌一项业务中的潜在风险与挑战，向另一项业务蔓延。','2017-09-01 23:22:00.000000',2,'none','piano',0,0),(10,'36氪首发 | 大神陪玩零抽成','36氪获悉，移动电竞开黑陪玩平台「猪队友」于近期完成数百万元人民币天使轮融资，投资方为纪源资本GGV。融资完成后，资金将主要用于产品的推广、日常的运营与技术研发。猪队友CEO段彬表示，未来6个月团队的目标是达到100万的用户注册、10万日活、30万月活、月收入达到150万。\r\n既然不收取匹配佣金，那么猪队友如何盈利？段彬告诉36氪，猪队友的盈利来源为旗下一款产品：翻车险。翻车险的使用场景为：用户在平台上购买陪玩服务后，可额外购买翻车险。翻车险的初始价格为陪玩价格的5%，而后将由用户胜率影响，胜率越高，价格越低，反之亦然。如果该局游戏取得胜利，则翻车险与陪玩费用将会正常支付给平台与陪玩人员；如果该局游戏失败，在扣除翻车险的基础上，平台将双倍赔付陪玩金额。','2017-09-01 23:22:00.000000',2,'none','piano',0,0),(11,'手机修图已经out','手机美颜App层出不穷，但各种美颜效果都大同小异，不具个人特色。如此注重个性化的千禧一代群体，当然是更喜欢足够特色美颜，而非千人一面的效果。\r\n近日，在Instagram上一位专门给用户“美颜”的艺术家Lance Phan火了，在他的“3D美颜”效果下，用户都变成了带有皮克斯动画风格的主角，具有强烈的个人特色。\r\n美颜的风格十分独特，在不失真的情况下，让人有种置身于动画片的感觉，想开启一段奇幻之旅。','2017-09-01 23:23:00.000000',2,'none','geek',0,0),(12,'人工智能如何改变商业游戏规则','看呐，这错综复杂的人工智能世界！人工智能所包含的内容浩如烟海，从最优化实践，到如何让AI服务于你的业务，再到它将如何影响消费者……这样的例子不胜枚举。事实是，有些人工智能太过复杂，尤其是考虑到当前及短期需求，现阶段的企业根本不必就是否对其进行投资而过度操劳。\r\n企业需要仔细、系统地权衡自己的选择，确定人工智能是否适合公司的发展。如果是，那么就有条不紊地制定路线图，以保证消费者的热度与产品的寿命。','2017-09-01 23:23:00.000000',2,'none','geek',0,0),(13,'暴风CFO姜浩','均通过网络视频起家、都曾经在A股创造辉煌，又以布局生态著称、创始人还都有股权质押。城门失火殃及池鱼，随着乐视危机爆发，暴风也频频被贴上“下一个乐视”的标签。\r\n姜浩在沟通会上通过PPT展示，暴风集团过去2年一共获得16亿元融资，其中有11个亿绝大部分是股权类的投资，4.9亿元是债权。\r\n其中，作为上市公司的暴风集团债权是3.5亿元，一半是IPO时公开募集，一半是发股权激励时从员工手里募集。此外，暴风TV基于业务规模能力借了1亿。\r\n姜浩说，从融资结构来讲，股权本身是风险和收益共担，对于股权来讲，暴风集团没有所谓还款的义务。投资人投入进去，共享以后公司股权的增值，也共同承担股权的风险。','2017-09-01 23:24:00.000000',2,'none','geek',0,0),(14,'哪有什么职场瓶颈','无独有偶，当晚我一个咨询客户的业务主管发微信给我，吐槽现在的工作又多又累，而且呆了五年，一点晋升机会都看不到。信心满满地准备跳槽了，她才发现自己的大公司背景和工作经验，帮助并不是很大。感觉好像啥都可以，但又啥独特优势都没有，高不成低不就的，根本跳不到更高级的岗位工作。\r\n表弟和客户主管两人的情况，看似完全不一样：一个是觉得工作挑战不够，遇到成长瓶颈了；一个是工作很拼，但碰到升职瓶颈了。其实背后的本质却一模一样：都是没有主动规划能力、被动成长导致的。这也是大多数20来岁刚进入职场、30多岁还想升职的人迷茫的原因。','2017-09-01 23:24:00.000000',2,'none','geek',0,0);
+/*!40000 ALTER TABLE `myblog_artical` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `myblog_comment`
+--
+
+DROP TABLE IF EXISTS `myblog_comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `myblog_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `pub_time` datetime(6) NOT NULL,
+  `text` varchar(300) NOT NULL,
+  `artical_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `myblog_comment_artical_id_c1b62b5e_fk_myblog_artical_id` (`artical_id`),
+  CONSTRAINT `myblog_comment_artical_id_c1b62b5e_fk_myblog_artical_id` FOREIGN KEY (`artical_id`) REFERENCES `myblog_artical` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `myblog_comment`
+--
+
+LOCK TABLES `myblog_comment` WRITE;
+/*!40000 ALTER TABLE `myblog_comment` DISABLE KEYS */;
+INSERT INTO `myblog_comment` VALUES (10,'David Beckham : ','2017-08-29 17:05:52.000000','&nbsp;asd',1),(11,'张三 : ','2017-05-02 03:11:39.000000','&nbsp;来啊 造作啊!',1),(12,'David Beckham : ','2017-08-29 17:05:53.000000','&nbsp;sdasd',1),(13,'大卫','2017-08-29 17:27:04.000000','11',1),(14,'大卫','2017-08-29 17:28:29.000000','aa',1),(15,'大卫','2017-08-29 17:28:31.000000','dsad',1),(16,'大卫','2017-08-29 17:28:32.000000','xzcxz',1),(17,'大卫','2017-08-29 17:28:34.000000','wqewqe',1),(18,'大卫','2017-08-29 17:28:35.000000','dsadasd',1),(19,'大卫','2017-08-29 17:28:38.000000','cxzc',1),(20,'大卫','2017-08-29 17:28:41.000000','123',1),(21,'大卫','2017-08-29 17:28:43.000000','撒',1),(22,'大卫','2017-08-29 17:28:46.000000','广东佛山公司的',1),(23,'大卫','2017-08-29 17:28:49.000000','双方当时的 ',1),(24,'大卫','2017-08-29 17:28:53.000000','发的说法是否',1),(25,'大卫','2017-08-29 17:28:55.000000','分为他',1),(26,'大卫','2017-08-29 17:29:05.000000','各位发生的',1),(27,'11','2017-09-06 16:00:00.000000','11',1),(28,'1','2017-09-06 16:00:00.000000','1',1),(29,'1','2017-09-06 16:00:00.000000','1',1),(30,'1','2017-09-06 16:00:00.000000','1',1),(31,'11','2017-09-06 16:00:00.000000','11',1),(32,'1','2017-09-06 16:00:00.000000','1',1),(33,'12321','2017-09-06 16:00:00.000000','12321',1),(34,'2','2017-09-06 16:00:00.000000','1',3),(35,'33','2017-09-06 16:00:00.000000','12',3),(36,'32','2017-09-06 16:00:00.000000','12',3),(37,'a','2017-10-13 16:00:00.000000','a',12),(38,'monkey','2017-10-13 16:00:00.000000','hello',14),(39,'kobe','2017-10-13 16:00:00.000000','welcome to NBA',14);
+/*!40000 ALTER TABLE `myblog_comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `myblog_stag`
+--
+
+DROP TABLE IF EXISTS `myblog_stag`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `myblog_stag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `myblog_stag`
+--
+
+LOCK TABLES `myblog_stag` WRITE;
+/*!40000 ALTER TABLE `myblog_stag` DISABLE KEYS */;
+INSERT INTO `myblog_stag` VALUES (1,'python'),(2,'尼采'),(3,'贝多芬'),(4,'肖邦'),(5,'Django'),(6,'Python'),(7,'Jquery'),(8,'JavaScript'),(9,'steam'),(10,'overwatch'),(11,'NBA'),(12,'3A'),(13,'爬虫'),(14,'Scrapy'),(15,'Psychology');
+/*!40000 ALTER TABLE `myblog_stag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `myblog_stag_articals`
+--
+
+DROP TABLE IF EXISTS `myblog_stag_articals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `myblog_stag_articals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stag_id` int(11) NOT NULL,
+  `artical_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `myblog_stag_articals_stag_id_artical_id_c98b172b_uniq` (`stag_id`,`artical_id`),
+  KEY `myblog_stag_articals_artical_id_70bcb7ed_fk_myblog_artical_id` (`artical_id`),
+  CONSTRAINT `myblog_stag_articals_artical_id_70bcb7ed_fk_myblog_artical_id` FOREIGN KEY (`artical_id`) REFERENCES `myblog_artical` (`id`),
+  CONSTRAINT `myblog_stag_articals_stag_id_c70d1268_fk_myblog_stag_id` FOREIGN KEY (`stag_id`) REFERENCES `myblog_stag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `myblog_stag_articals`
+--
+
+LOCK TABLES `myblog_stag_articals` WRITE;
+/*!40000 ALTER TABLE `myblog_stag_articals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `myblog_stag_articals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `myblog_user`
+--
+
+DROP TABLE IF EXISTS `myblog_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `myblog_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `gender` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `myblog_user`
+--
+
+LOCK TABLES `myblog_user` WRITE;
+/*!40000 ALTER TABLE `myblog_user` DISABLE KEYS */;
+INSERT INTO `myblog_user` VALUES (2,'yin','731769168@qq.com',1),(3,'sdass','dsadasxc@qq.com',1),(4,'adsadwqeqw','213213@qq.com',1),(5,'agdsbcvsfwe','412415@qq.com',1),(6,'rewtdsvdxv','y5yd34@qq.com',1),(7,'5dsgcxvxcb ','31r343242@qq.com',1),(8,'sdfaczxad','213e214@qq.com',1),(9,'sdsaegfhkjhk','e34235624@qq.com',1),(10,'4345fds','1234@qq.com',1),(11,'dsafew','2314@qq.com',1),(12,'hgfgrtew','2312421@qq.com',1),(13,'546523421321','szcxzczxvz@qq.com',1),(14,'dshonnkl','234129@qq.com',1),(15,'你好22','2312@qq.com',1);
+/*!40000 ALTER TABLE `myblog_user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-10-15 22:20:14
